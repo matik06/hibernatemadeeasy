@@ -1,4 +1,5 @@
 
+import org.hibernate.dao.HibernateUtil;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
