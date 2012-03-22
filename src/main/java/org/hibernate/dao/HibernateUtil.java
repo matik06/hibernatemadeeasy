@@ -5,13 +5,22 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.model.inheritance.Ancestor;
+import org.hibernate.model.inheritance.Child;
 import org.hibernate.model.FooBar;
 import org.hibernate.model.Fracture;
 import org.hibernate.model.Interest;
+import org.hibernate.model.inheritance.Parent;
 import org.hibernate.model.Prison;
 import org.hibernate.model.Snafu;
 import org.hibernate.model.Thing;
 import org.hibernate.model.User;
+import org.hibernate.model.inheritance.manytomany.LeftManyStudent;
+import org.hibernate.model.inheritance.manytomany.RightManyCourse;
+import org.hibernate.model.onetomany.Player;
+import org.hibernate.model.onetomany.Team;
+import org.hibernate.model.onetoone.Exam;
+import org.hibernate.model.onetoone.ExamDetail;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 
@@ -51,6 +60,15 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Interest.class);
         configuration.addAnnotatedClass(Fracture.class);
         configuration.addAnnotatedClass(Prison.class);
+        configuration.addAnnotatedClass(Ancestor.class);
+        configuration.addAnnotatedClass(Parent.class);
+        configuration.addAnnotatedClass(Child.class);
+        configuration.addAnnotatedClass(Exam.class);
+        configuration.addAnnotatedClass(ExamDetail.class);
+        configuration.addAnnotatedClass(Team.class);
+        configuration.addAnnotatedClass(Player.class);
+        configuration.addAnnotatedClass(LeftManyStudent.class);
+        configuration.addAnnotatedClass(RightManyCourse.class);
         
         configuration.configure();
                 
