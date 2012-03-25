@@ -15,6 +15,10 @@ import org.hibernate.model.Prison;
 import org.hibernate.model.Snafu;
 import org.hibernate.model.Thing;
 import org.hibernate.model.User;
+import org.hibernate.model.genericdao.model.Address;
+import org.hibernate.model.genericdao.model.Client;
+import org.hibernate.model.genericdao.model.ClientDetail;
+import org.hibernate.model.genericdao.model.Skill;
 import org.hibernate.model.inheritance.manytomany.LeftManyStudent;
 import org.hibernate.model.inheritance.manytomany.RightManyCourse;
 import org.hibernate.model.onetomany.Player;
@@ -69,6 +73,11 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Player.class);
         configuration.addAnnotatedClass(LeftManyStudent.class);
         configuration.addAnnotatedClass(RightManyCourse.class);
+        
+        configuration.addAnnotatedClass(Address.class);
+        configuration.addAnnotatedClass(Client.class);
+        configuration.addAnnotatedClass(ClientDetail.class);
+        configuration.addAnnotatedClass(Skill.class);
         
         configuration.configure();
                 
