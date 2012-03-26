@@ -4,6 +4,7 @@
  */
 package org.hibernate.model.genericdao.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 import javax.persistence.CascadeType;
@@ -25,7 +26,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="client", schema="examscam")
-public class Client {
+public class Client implements Serializable{
     
     private List<Address> addresses = new Vector<Address>();
     private List<Skill> skills = new Vector<Skill>();
@@ -34,20 +35,30 @@ public class Client {
     private String userName;
     private String password;
     private Boolean verified;
-
     
-    @OneToMany(mappedBy="client", targetEntity=Address.class,
-            fetch= FetchType.EAGER, cascade= CascadeType.ALL)
+    @ManyToMany(cascade= CascadeType.PERSIST)
+    @JoinTable(name="client_skill",
+            joinColumns={@JoinColumn(name="client_id")},
+            inverseJoinColumns={@JoinColumn(name="skill_id")})
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    @OneToMany(mappedBy="client",
+            fetch= FetchType.EAGER,
+            cascade= {CascadeType.ALL},
+            orphanRemoval=true)
     public List<Address> getAddresses() {
         return addresses;
     }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
+    
+    public void addAddress(Address address) {
+        address.setClient(this);
+        addresses.add(address);
     }
-
-    @OneToOne(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    @JoinColumn(name="detail_id")
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "detail_id")
     public ClientDetail getClientDetail() {
         return clientDetail;
     }
@@ -55,6 +66,12 @@ public class Client {
     public void setClientDetail(ClientDetail clientDetail) {
         this.clientDetail = clientDetail;
     }
+    
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+   
 
     @Id
     @GeneratedValue
@@ -75,13 +92,7 @@ public class Client {
         this.password = password;
     }
 
-    @ManyToMany(cascade= CascadeType.PERSIST)
-    @JoinTable(name="client_skill",
-            joinColumns={@JoinColumn(name="client_id")},
-            inverseJoinColumns={@JoinColumn(name="skill_id")})
-    public List<Skill> getSkills() {
-        return skills;
-    }
+
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;

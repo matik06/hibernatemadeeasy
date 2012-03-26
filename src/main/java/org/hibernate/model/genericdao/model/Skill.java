@@ -4,6 +4,7 @@
  */
 package org.hibernate.model.genericdao.model;
 
+import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="skill", schema="examscam")
-public class Skill {
+public class Skill implements Serializable {
     
     private Long id;
     private String name;

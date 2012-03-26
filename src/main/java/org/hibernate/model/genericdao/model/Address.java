@@ -4,6 +4,7 @@
  */
 package org.hibernate.model.genericdao.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="address")
-public class Address {
+public class Address implements Serializable {
     
     private Long id;
     private Client client;
@@ -28,6 +29,12 @@ public class Address {
     private String state;
     private String country;
     private String code;
+    
+    @ManyToOne()
+    @JoinColumn(name="client_id")
+    public Client getClient() {
+        return client;
+    }
 
     @Column(name="addr1", nullable=true)
     public String getAddressLine1() {
@@ -53,12 +60,6 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    @ManyToOne
-    @JoinColumn(name="client_id")
-    public Client getClient() {
-        return client;
     }
 
     public void setClient(Client client) {
